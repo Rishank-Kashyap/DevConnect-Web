@@ -1,6 +1,6 @@
 const NavBar = () => {
     return (
-      <nav className="navbar bg-base-300 shadow-md px-6">
+      <nav className="navbar sticky top-0 bg-base-300 shadow-md px-6">
         {/* Left Side: Logo */}
         <div className="flex-1">
           <a className="btn btn-ghost text-2xl font-bold tracking-wide">
