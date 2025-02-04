@@ -24,16 +24,16 @@ const LandingPage = () => {
 
             <div className="flex gap-4 pt-6">
               <button
-                onClick={() => navigate("/app/login")}
+                onClick={() => navigate("/login")}
                 className="px-8 py-3 text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
               >
-                Login
+                Sign In
               </button>
               <button
-                onClick={() => navigate("/app/signup")}
+                onClick={() => navigate("/signup")}
                 className="px-8 py-3 text-lg font-semibold text-blue-600 border-2 border-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
               >
-                Sign Up
+                Create Account
               </button>
             </div>
           </div>
