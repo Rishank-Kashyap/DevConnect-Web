@@ -7,6 +7,7 @@ import LandingPage from "./components/LandingPage";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Feed from "./components/Feed";
+import Error from "./components/Error";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
               <Route path="signup" element={<Signup />} />
               <Route path="profile" element={<Profile />} />
             </Route>
+
+            <Route path="*" element={<Error />} />
           </Routes>
         </BrowserRouter>
       </Provider>
