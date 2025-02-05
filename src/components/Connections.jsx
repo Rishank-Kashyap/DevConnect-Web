@@ -116,7 +116,7 @@ const Connections = () => {
                   {/* Action Buttons */}
                   <div className="mt-6 flex gap-3 w-full justify-center">
                     <button className="btn px-5 bg-gray-900 text-white border-transparent hover:bg-gray-950 active:bg-black disabled:bg-gray-700 disabled:opacity-50 hover:-translate-y-1 hover:shadow-lg transition-all duration-300" onClick={() => handleProfile(connection)}>
-                      Profile
+                      View Profile
                     </button>
                   </div>
                 </div>
