@@ -1,112 +1,164 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequests, setSelectedRequest } from "../utils/requestSlice";
+import {
+  addRequests,
+  removeRequest,
+  setSelectedRequest,
+} from "../utils/requestSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Requests = () => {
-    const {requests} = useSelector((store) => store.requests);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const { requests } = useSelector((store) => store.requests);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const handleProfile = ( request ) => {
-        try{
-            dispatch(setSelectedRequest(request.fromUserId));
-            navigate("/requests/info")
-        }
-        catch(err){console.log(err)}
-      }
-
-    const fetchRequests = async () => {
-        try{
-            const res = await axios.get(BASE_URL + "/user/requests/received", {withCredentials: true,})
-
-            dispatch(addRequests(res.data.data))
-        }
-        catch (err){
-            console.error(err);
-        }
+  const reviewRequest = async (status, _id) => {
+    try {
+      await axios.post(
+        `${BASE_URL}/request/review/${status}/${_id}`,
+        {},
+        { withCredentials: true }
+      );
+      dispatch(removeRequest(_id));
+    } catch (err) {
+      console.error(err);
     }
+  };
 
-    useEffect(() => {
-        fetchRequests();
-    },[])
+  const handleProfile = (request) => {
+    try {
+      dispatch(setSelectedRequest(request.fromUserId));
+      navigate("/requests/info");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    
+  const fetchRequests = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/user/requests/received`, {
+        withCredentials: true,
+      });
+      dispatch(addRequests(res.data.data));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchRequests();
+  }, []);
+
   if (!requests)
     return (
-      <h1 className="flex justify-center items-center text-xl">Loading....</h1>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50 flex items-center justify-center">
+        <div className="animate-pulse text-2xl font-semibold text-gray-600">
+          Loading requests...
+        </div>
+      </div>
     );
 
   if (requests.length === 0)
     return (
-      <h1 className="flex justify-center items-center text-xl">
-        {" "}
-        No Requests Found
-      </h1>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50 flex flex-col items-center justify-center p-8">
+        <div className="text-center max-w-md space-y-4">
+          <h1 className="text-3xl font-bold text-gray-800">
+            📭 No Requests Found
+          </h1>
+          <p className="text-gray-600 text-lg">
+            You don&apos;t have any pending connection requests at the moment.
+          </p>
+        </div>
+      </div>
     );
 
-    return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50 py-10 px-4">
-          <div className="container mx-auto">
-            <h1 className="text-4xl font-bold text-gray-800 text-center mb-8">
-              Your Requests
-              <span className="text-blue-600">.</span>
-            </h1>
-    
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {requests.map((request) => {
-                const { _id, firstName, lastName, photoUrl, age, gender, about } =
-                  request.fromUserId;
-    
-                return (
-                  <div
-                    key={_id}
-                    className="bg-gradient-to-br from-blue-100/50 to-pink-100/50 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6 hover:shadow-xl transition-all duration-300"
-                  >
-                    <div className="flex flex-col items-center text-center">
-                      {/* Profile Image */}
-                      <div className="relative mb-4">
-                        <img
-                          alt="Profile"
-                          className="w-24 h-24 rounded-full object-cover border-4 border-white/80 shadow-lg"
-                          src={photoUrl || "/default-avatar.png"}
-                          onError={(e) => {
-                            e.target.src = "/default-avatar.png";
-                          }}
-                        />
-                      </div>
-    
-                      {/* Name and Details */}
-                      <h2 className="text-2xl font-bold text-gray-800">
-                        {firstName} {lastName}
-                      </h2>
-                      {(age || gender) && (
-                        <p className="text-sm text-gray-600 mt-1">
-                          {[age, gender].filter(Boolean).join(" • ")}
-                        </p>
-                      )}
-    
-                      {/* About Section */}
-                      <p className="text-gray-700 mt-4 text-center line-clamp-3">
-                        {about || "Passionate developer looking to collaborate"}
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+            Connection Requests
+            <span className="text-blue-600">.</span>
+          </h1>
+          <p className="text-lg text-gray-600">
+            Manage your incoming collaboration requests
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {requests.map((request) => {
+            const { _id, firstName, lastName, photoUrl, age, gender, about } =
+              request.fromUserId;
+
+            return (
+              <div
+                key={_id}
+                className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6 hover:shadow-xl transition-all duration-300"
+              >
+                <div className="flex flex-col items-center space-y-4">
+                  {/* Profile Image */}
+                  <div className="relative">
+                    <div className="absolute -inset-2 bg-gradient-to-r from-blue-100 to-pink-100 rounded-full blur opacity-30"></div>
+                    <img
+                      alt="Profile"
+                      className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
+                      src={photoUrl || "/default-avatar.png"}
+                      onError={(e) => {
+                        e.target.src = "/default-avatar.png";
+                      }}
+                    />
+                  </div>
+
+                  {/* Profile Details */}
+                  <div className="text-center space-y-2">
+                    <h2 className="text-2xl font-bold text-gray-800">
+                      {firstName} {lastName}
+                    </h2>
+                    {(age || gender) && (
+                      <p className="text-sm text-gray-500">
+                        {[age, gender].filter(Boolean).join(" • ")}
                       </p>
-    
-                      {/* Action Buttons */}
-                      <div className="mt-6 flex gap-3 w-full justify-center">
-                        <button className="btn px-5 bg-gray-900 text-white border-transparent hover:bg-gray-950 active:bg-black disabled:bg-gray-700 disabled:opacity-50 hover:-translate-y-1 hover:shadow-lg transition-all duration-300" onClick={() => handleProfile(request)}>
-                          View Profile
-                        </button>
-                      </div>
+                    )}
+                  </div>
+
+                  {/* About Section */}
+                  <p className="text-gray-600 text-center line-clamp-3">
+                    {about || "Passionate developer looking to collaborate"}
+                  </p>
+
+                  {/* Action Buttons */}
+                  <div className="w-full space-y-3">
+                    <button
+                      onClick={() => handleProfile(request)}
+                      className="w-full py-2 px-4 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                    >
+                      View Profile
+                    </button>
+                    <div className="flex gap-3">
+                      <button
+                        onClick={() => reviewRequest("rejected", request._id)}
+                        className="flex-1 py-2 px-4 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                      >
+                        Reject
+                      </button>
+                      <button
+                        onClick={() => reviewRequest("accepted", request._id)}
+                        className="flex-1 py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                      >
+                        Accept
+                      </button>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
-      );
-}
+      </div>
+    </div>
+  );
+};
 
-export default Requests
+export default Requests;

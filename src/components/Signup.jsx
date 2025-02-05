@@ -22,7 +22,7 @@ const Signup = () => {
         { withCredentials: true }
       );
       dispatch(addUser(res.data.data));
-      navigate("/profile");
+      navigate("/feed");
     } catch (err) {
       setError(err?.response?.data || "Something went wrong");
     }
