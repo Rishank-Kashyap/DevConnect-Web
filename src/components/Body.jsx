@@ -27,10 +27,10 @@ const Body = () => {
   };
 
   useEffect(() => {
-    if(!userData) fetchUser();
+    if (!userData) fetchUser();
   }, []);
 
-  if(loading) return <LoadingSpinner />
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div className="min-h-screen flex flex-col">

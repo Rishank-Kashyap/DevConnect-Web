@@ -27,20 +27,19 @@ function App() {
             <Route element={<Body />}>
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
-
               <Route element={<ProtectedRoute />}>
-                <Route path="feed" element={<Feed />} />
+                <Route path="/feed" element={<Feed />} />
 
-                <Route path="profile" element={<Profile />} />
-                <Route path="editProfile" element={<EditProfile />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/editProfile" element={<EditProfile />} />
 
-                <Route path="connections" element={<Connections />} />
-                <Route path="connections/info" element={<ConnectionInfo />} />
+                <Route path="/connections" element={<Connections />} />
+                <Route path="/connections/info" element={<ConnectionInfo />} />
 
-                <Route path="requests" element={<Requests />} />
-                <Route path="requests/info" element={<RequestInfo />} />
+                <Route path="/requests" element={<Requests />} />
+                <Route path="/requests/info" element={<RequestInfo />} />
 
-                <Route path="editPassword" element={<ChangePassword />} />
+                <Route path="/editPassword" element={<ChangePassword />} />
               </Route>
             </Route>
 

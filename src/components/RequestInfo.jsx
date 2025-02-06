@@ -26,8 +26,7 @@ const RequestInfo = () => {
     );
   }
 
-  const { firstName, lastName, photoUrl, age, gender, about } =
-    selectedRequest;
+  const { firstName, lastName, photoUrl, age, gender, about } = selectedRequest;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50 py-10 px-4">

@@ -87,74 +87,84 @@ const Requests = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {requests.map((request) => {
-            const { _id, firstName, lastName, photoUrl, age, gender, about } =
-              request.fromUserId;
+        <div className="flex justify-center">
+          <div
+            className={`grid gap-8 ${
+              requests.length === 1
+                ? "grid-cols-1 max-w-md"
+                : requests.length === 2
+                ? "grid-cols-2 max-w-2xl"
+                : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+            }`}
+          >
+            {requests.map((request) => {
+              const { _id, firstName, lastName, photoUrl, age, gender, about } =
+                request.fromUserId;
 
-            return (
-              <div
-                key={_id}
-                className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6 hover:shadow-xl transition-all duration-300"
-              >
-                <div className="flex flex-col items-center space-y-4">
-                  {/* Profile Image */}
-                  <div className="relative">
-                    <div className="absolute -inset-2 bg-gradient-to-r from-blue-100 to-pink-100 rounded-full blur opacity-30"></div>
-                    <img
-                      alt="Profile"
-                      className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
-                      src={photoUrl || "/default-avatar.png"}
-                      onError={(e) => {
-                        e.target.src = "/default-avatar.png";
-                      }}
-                    />
-                  </div>
+              return (
+                <div
+                  key={_id}
+                  className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6 hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="flex flex-col items-center space-y-4">
+                    {/* Profile Image */}
+                    <div className="relative">
+                      <div className="absolute -inset-2 bg-gradient-to-r from-blue-100 to-pink-100 rounded-full blur opacity-30"></div>
+                      <img
+                        alt="Profile"
+                        className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
+                        src={photoUrl || "/default-avatar.png"}
+                        onError={(e) => {
+                          e.target.src = "/default-avatar.png";
+                        }}
+                      />
+                    </div>
 
-                  {/* Profile Details */}
-                  <div className="text-center space-y-2">
-                    <h2 className="text-2xl font-bold text-gray-800">
-                      {firstName} {lastName}
-                    </h2>
-                    {(age || gender) && (
-                      <p className="text-sm text-gray-500">
-                        {[age, gender].filter(Boolean).join(" • ")}
-                      </p>
-                    )}
-                  </div>
+                    {/* Profile Details */}
+                    <div className="text-center space-y-2">
+                      <h2 className="text-2xl font-bold text-gray-800">
+                        {firstName} {lastName}
+                      </h2>
+                      {(age || gender) && (
+                        <p className="text-sm text-gray-500">
+                          {[age, gender].filter(Boolean).join(" • ")}
+                        </p>
+                      )}
+                    </div>
 
-                  {/* About Section */}
-                  <p className="text-gray-600 text-center line-clamp-3">
-                    {about || "Passionate developer looking to collaborate"}
-                  </p>
+                    {/* About Section */}
+                    <p className="text-gray-600 text-center line-clamp-3">
+                      {about || "Passionate developer looking to collaborate"}
+                    </p>
 
-                  {/* Action Buttons */}
-                  <div className="w-full space-y-3">
-                    <button
-                      onClick={() => handleProfile(request)}
-                      className="w-full py-2 px-4 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
-                    >
-                      View Profile
-                    </button>
-                    <div className="flex gap-3">
+                    {/* Action Buttons */}
+                    <div className="w-full space-y-3">
                       <button
-                        onClick={() => reviewRequest("rejected", request._id)}
-                        className="flex-1 py-2 px-4 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                        onClick={() => handleProfile(request)}
+                        className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
                       >
-                        Reject
+                        View Profile
                       </button>
-                      <button
-                        onClick={() => reviewRequest("accepted", request._id)}
-                        className="flex-1 py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
-                      >
-                        Accept
-                      </button>
+                      <div className="flex gap-3">
+                        <button
+                          onClick={() => reviewRequest("rejected", request._id)}
+                          className="flex-1 py-2 px-4 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                        >
+                          Reject
+                        </button>
+                        <button
+                          onClick={() => reviewRequest("accepted", request._id)}
+                          className="flex-1 py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                        >
+                          Accept
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
