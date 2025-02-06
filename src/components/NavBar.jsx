@@ -78,8 +78,6 @@ const NavBar = () => {
                 </Link>
               </li>
 
-              <div className="divider my-1 h-[1px] bg-gradient-to-r from-blue-200/50 via-pink-200/50 to-transparent" />
-
               <li className="py-0.5">
                 <Link
                   to="/connections"
@@ -123,6 +121,31 @@ const NavBar = () => {
                     />
                   </svg>
                   Requests
+                </Link>
+              </li>
+
+              <div className="divider my-1 h-[1px] bg-gradient-to-r from-blue-200/50 via-pink-200/50 to-transparent" />
+
+              <li className="py-0.5">
+                <Link
+                  to="/editProfile"
+                  className="flex items-center gap-2 text-base text-gray-700 hover:text-blue-600 transition-all duration-300 px-3 py-1.5 rounded-md hover:-translate-y-0.5 hover:shadow-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 text-blue-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                    />
+                  </svg>
+                  Edit Profile
                 </Link>
               </li>
 
