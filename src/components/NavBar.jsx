@@ -126,6 +126,29 @@ const NavBar = () => {
                 </Link>
               </li>
 
+              <li className="py-0.5">
+                <Link
+                  to="/editPassword"
+                  className="flex items-center gap-2 text-base text-gray-700 hover:text-blue-600 transition-all duration-300 px-3 py-1.5 rounded-md hover:-translate-y-0.5 hover:shadow-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 text-blue-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    />
+                  </svg>
+                  Edit Password
+                </Link>
+              </li>
+
               <div className="divider my-1 h-[1px] bg-gradient-to-r from-blue-200/50 via-pink-200/50 to-transparent" />
 
               <li className="py-0.5">

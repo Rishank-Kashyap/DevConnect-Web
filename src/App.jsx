@@ -12,6 +12,7 @@ import Connections from "./components/Connections";
 import ConnectionInfo from "./components/ConnectionInfo";
 import Requests from "./components/Requests";
 import RequestInfo from "./components/RequestInfo";
+import ChangePassword from "./components/ChangePassword";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path="connections/info" element={<ConnectionInfo />} />
               <Route path="requests" element={<Requests />} />
               <Route path="requests/info" element={<RequestInfo />} />
+              <Route path="editPassword" element={<ChangePassword />} />
             </Route>
 
             <Route path="*" element={<Error />} />
