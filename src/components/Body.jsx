@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import axios from "axios";
@@ -10,7 +10,6 @@ import LoadingSpinner from "./LoadingSpinner";
 
 const Body = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const userData = useSelector((store) => store.user);
   const [loading, setLoading] = useState(true);
 
@@ -21,9 +20,6 @@ const Body = () => {
       });
       dispatch(addUser(user.data));
     } catch (err) {
-      if (err.status === 401) {
-        navigate("/login");
-      }
       console.log(err);
     } finally {
       setLoading(false);
@@ -33,7 +29,7 @@ const Body = () => {
   useEffect(() => {
     if(!userData) fetchUser();
   }, []);
-  
+
   if(loading) return <LoadingSpinner />
 
   return (

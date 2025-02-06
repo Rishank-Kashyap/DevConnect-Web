@@ -13,6 +13,8 @@ import ConnectionInfo from "./components/ConnectionInfo";
 import Requests from "./components/Requests";
 import RequestInfo from "./components/RequestInfo";
 import ChangePassword from "./components/ChangePassword";
+import EditProfile from "./components/EditProfile";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -23,15 +25,23 @@ function App() {
             <Route path="/" element={<LandingPage />} />
 
             <Route element={<Body />}>
-              <Route path="/feed" element={<Feed />} />
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="connections" element={<Connections />} />
-              <Route path="connections/info" element={<ConnectionInfo />} />
-              <Route path="requests" element={<Requests />} />
-              <Route path="requests/info" element={<RequestInfo />} />
-              <Route path="editPassword" element={<ChangePassword />} />
+
+              <Route element={<ProtectedRoute />}>
+                <Route path="feed" element={<Feed />} />
+
+                <Route path="profile" element={<Profile />} />
+                <Route path="editProfile" element={<EditProfile />} />
+
+                <Route path="connections" element={<Connections />} />
+                <Route path="connections/info" element={<ConnectionInfo />} />
+
+                <Route path="requests" element={<Requests />} />
+                <Route path="requests/info" element={<RequestInfo />} />
+
+                <Route path="editPassword" element={<ChangePassword />} />
+              </Route>
             </Route>
 
             <Route path="*" element={<Error />} />
