@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,6 +12,7 @@ const Connections = () => {
   const { connections } = useSelector((store) => store.connections);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const handleProfile = (connection) => {
     try {
@@ -30,6 +31,8 @@ const Connections = () => {
       dispatch(addConnections(res.data.data));
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -37,30 +40,24 @@ const Connections = () => {
     fetchConnections();
   }, []);
 
-  if (!connections) {
+  if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50 flex flex-col items-center justify-center p-8">
-        <div className="text-center max-w-md">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
-            🌟 Build Your Network
-          </h1>
-          <p className="text-gray-600 text-lg">
-            Start connecting with amazing developers and grow your professional
-            circle!
-          </p>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50 flex items-center justify-center">
+        <div className="animate-pulse text-2xl font-semibold text-gray-600">
+          Loading connections...
         </div>
       </div>
     );
   }
 
-  if (connections.length === 0) {
+  if (!loading && connections.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50 flex flex-col items-center justify-center p-8">
-        <div className="text-center max-w-md">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+        <div className="text-center max-w-md space-y-4">
+          <h1 className="text-3xl font-bold text-gray-800">
             🚀 Ready to Connect?
           </h1>
-          <p className="text-gray-600 text-lg mb-6">
+          <p className="text-gray-600 text-lg">
             Your future collaborators are waiting! Explore the feed to find
             developers who share your interests.
           </p>
