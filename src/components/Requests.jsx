@@ -17,7 +17,7 @@ const Requests = () => {
   const reviewRequest = async (status, _id) => {
     try {
       await axios.post(
-        `https://dev-connect-tau.vercel.app/request/review/${status}/${_id}`,
+        `${BASE_URL}/request/review/${status}/${_id}`,
         {},
         { withCredentials: true }
       );
