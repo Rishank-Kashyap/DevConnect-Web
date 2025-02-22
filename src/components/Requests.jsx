@@ -1,18 +1,15 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addRequests,
-  removeRequest,
-  setSelectedRequest,
-} from "../utils/requestSlice";
-import { useEffect } from "react";
+import { addRequests, removeRequest, setSelectedRequest } from "../utils/requestSlice";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Requests = () => {
   const { requests } = useSelector((store) => store.requests);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const reviewRequest = async (status, _id) => {
     try {
@@ -44,6 +41,8 @@ const Requests = () => {
       dispatch(addRequests(res.data.data));
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,7 +50,7 @@ const Requests = () => {
     fetchRequests();
   }, []);
 
-  if (!requests)
+  if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50 flex items-center justify-center">
         <div className="animate-pulse text-2xl font-semibold text-gray-600">
@@ -59,8 +58,9 @@ const Requests = () => {
         </div>
       </div>
     );
+  }
 
-  if (requests.length === 0)
+  if (!loading && requests.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50 flex flex-col items-center justify-center p-8">
         <div className="text-center max-w-md space-y-4">
@@ -73,6 +73,7 @@ const Requests = () => {
         </div>
       </div>
     );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50 py-12 px-4 sm:px-6 lg:px-8">
