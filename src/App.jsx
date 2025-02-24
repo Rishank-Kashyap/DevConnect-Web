@@ -7,6 +7,7 @@ import LandingPage from "./components/LandingPage";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Feed from "./components/Feed";
+import UserInfo from "./components/UserInfo";
 import Error from "./components/Error";
 import Connections from "./components/Connections";
 import ConnectionInfo from "./components/ConnectionInfo";
@@ -28,7 +29,9 @@ function App() {
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
               <Route element={<ProtectedRoute />}>
+              
                 <Route path="/feed" element={<Feed />} />
+                <Route path="/feed/info" element={<UserInfo />} />
 
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/editProfile" element={<EditProfile />} />
