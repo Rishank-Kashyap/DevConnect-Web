@@ -20,7 +20,7 @@ const Error = () => {
         </p>
 
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/feed")}
           className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
         >
           Return Home
