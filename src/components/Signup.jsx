@@ -88,6 +88,10 @@ const Signup = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Create a password"
               />
+              <p className="text-sm text-gray-500 mt-1">
+                Must be at least 8 characters with uppercase, lowercase, number,
+                and symbol
+              </p>
             </div>
 
             {error && (
