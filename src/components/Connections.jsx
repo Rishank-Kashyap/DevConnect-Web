@@ -9,7 +9,8 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const Connections = () => {
-  const { connections } = useSelector((store) => store.connections);
+  const connectionsState = useSelector((store) => store.connections);
+  const connections = connectionsState?.connections || [];
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
